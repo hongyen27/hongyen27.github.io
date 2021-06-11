@@ -1,0 +1,120 @@
+﻿@model List<Orders>
+@{
+    Layout = "_LayoutOrder";
+    ViewData["Title"] = "Index";
+}
+<link href="/css/style.css" rel="stylesheet" />
+@{ long deliverId = 0;}
+<div class="table-area">
+    <h1>Đơn hàng</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Mã đơn hàng</th>
+                <th>Người đặt</th>
+                <th>Ngày đặt</th>
+                @*<th>Số điện thoại</th>
+                    <th>Địa chỉ nhận</th>
+                    <th>Ghi chú</th>*@
+                <th>Người lập phiếu</th>
+                <th>Trạng thái</th>
+                <th>Người giao hàng</th>
+                
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.HOTEN</td>
+                    <td>@item.CreateTime</td>
+                    @*<td>@item.SDT</td>
+                        <td>@item.Address</td>
+                        <td>@item.Notes</td>*@
+                    
+                    @*@if (item.Status_code == "C" || item.Status_code == "S")
+                    {
+                        <td>@item.HOTEN_DL</td>
+                    }
+                    else
+                    {
+                        <td>
+                            <select style="width:78%;outline:#1A73E8;border-color:#1A73E8" name="DeliverID">
+                                <option value="">--Chọn người giao hàng--</option>
+                                @foreach (var item1 in ViewBag.delivers)
+                                {
+                                    <option value="@item1.Id">@item1.TT_Delivers</option>
+
+                                }
+                            </select>
+                        </td>
+                    }*@
+                    <td>@item.HOTEN_ST</td>
+                    <td>@item.Status</td>
+                    
+                    @*<td><a href="#">Giao hàng</a></td>
+                        <td><a href="#">Hủy đơn hàng</a></td>*@
+                    @if (item.Status_code == "C" || item.Status_code == "S")
+                    {
+                        <td>@item.HOTEN_DL</td>
+                    }
+                    else
+                    {
+                        <td>
+                        <form action="/order/process" method="post">
+                            <input hidden placeholder="" value="C" type="text" name="Status" required="" />
+                            <input hidden placeholder="" value="@item.Id" type="text" name="Id" required="" />
+                            @*<input hidden placeholder="" value="@deliverId" type="text" name="DeliverID" required="" />*@
+                            <select style="width:78%;outline:#1A73E8;border-color:#1A73E8" name="DeliverID">
+                                <option value="">--Chọn người giao hàng--</option>
+                                @foreach (var item1 in ViewBag.delivers)
+                                {
+                                    <option value="@item1.Id">@item1.TT_Delivers</option>
+
+                                }
+                            </select>
+                            <button>Giao hàng</button>
+                        </form>
+                    </td>
+                    }
+                    
+                    <td><a href="/order/items/@item.Id">Chi tiết đơn hàng</a></td>
+                    @if (item.Status_code == "S")
+                    {
+                        <td>Hoàn tất</td>
+                    }
+                    else
+                    {
+                        <td>
+                        <form action="/order/process" method="post">
+                            <input hidden placeholder="" value="X" type="text" name="Status" required="" />
+                            <input hidden placeholder="" value="@item.Id" type="text" name="Id" required="" />
+                            <button>Hủy đơn hàng</button>
+                        </form>
+                        </td>
+                    }
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    function genderChanged(obj) {
+        deliverId.innerText = obj.value;
+        //alert(deliverId);
+    }
+    //$(document).ready(function () {
+    //    $('#deliver_Id').change(function () {
+    //        alert($('#deliver_Id').val());
+    //        deliver.innerText = $('#deliver_Id').val();
+    //    });
+    //});
+    //deliverId.innerText = $("#deliver_Id").find(":selected").val();
+    //alert(deliverId);
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

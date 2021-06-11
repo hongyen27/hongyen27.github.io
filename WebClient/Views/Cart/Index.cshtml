@@ -1,0 +1,128 @@
+﻿@model List<OrderItems>
+@{
+    //Layout = "_LayoutHome";
+    Layout = "LayoutPage";
+    ViewData["Title"] = "Your Cart";
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
+
+
+<br />
+
+<div class="container-fluid">
+    <h2 class="text-center" style="text-transform: uppercase;font-size: 38px;color: #485650;font-weight: bold;
+">
+        Giỏ hàng của bạn
+    </h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="text-align: center;">Tên sản phẩm</th>
+                <th style="text-align: center;">Giá</th>
+                <th style="text-align: center;">Số lượng</th>
+                <th style="text-align: center;">Tổng tiền</th>
+                <th style="text-align: center;">Xóa</th>
+            </tr>
+        </thead>
+        <tbody id="sheet">
+            @{ int total = 0;}
+            @foreach (var item in Model)
+            {
+                total += item.Price * item.Quantity;
+                <tr>
+                    <td style="width:15%;text-align:center"><span style="text-align:center;font-size:20px;font-weight:bold">@item.ProductName</span>  <img src="/upload/@item.ImageUrl" width="150" /></td>
+                    <td style="text-align: center;">@item.Price</td>
+                    <td style="text-align: center;" data-val="@item.ProductId">
+                        <input class="qty form-control" style="width:50%;" type="number" min="1" max="10" value="@item.Quantity" />
+                    </td>
+                    <th style="text-align: center;background: #fff;color: #000;">@(item.Price * item.Quantity)</th>
+
+                    <td style="text-align: center;">
+                        <a class="del" href="/cart/delete/@item.ProductId">
+                            <img style=" height: 34px; " src="/images/trash-solid.svg" />
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="visible-xs">
+                <td class="text-center">
+                </td>
+            </tr>
+            <tr>
+
+                <td colspan="3" class="hidden-xs"> </td>
+                <td class="hidden-xs text-center">
+                    <strong>Tổng tiền :<span id="total"> @total đ</span> </strong>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </tfoot>
+
+
+    </table>
+    <div class="row">
+        <div class="col-md-8">
+            <form>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <form action="/order/pay" method="post">
+                <input class="form-control" placeholder="Địa chỉ" type="text" name="address" required="" style="width:100%" />
+                <input class="form-control mt-2" placeholder="Số điện thoại" type="text" name="SDT" required="" style="width:100%" />
+                <textarea class="form-control mt-2" placeholder="Ghi chú" type="text" name="notes" required="" style="width:100%"></textarea>
+                <button style=" width: 100%;" class="btn btn-primary mt-2">Đặt hàng</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+@*Edit Quantity Cart*@
+<script type="text/javascript">
+    function refresh(node) {
+        var q = node.value;
+        var tr = node.parentNode.parentNode;
+        var p = parseInt(tr.cells[1].innerText);
+        tr.cells[3].innerText = q * p;
+        var s = 0;
+        for (var j = sheet.rows.length - 1; j >= 0; j--) {
+            var p = parseInt(sheet.rows[j].cells[1].innerText);
+            var q = parseInt(a[j].value);
+            s += p * q;
+            //alert(s);
+        }
+        total.innerText = s;
+    }
+    var a = document.getElementsByClassName('qty');
+    for (var i = a.length - 1; i >= 0; i--) {
+        a[i].onchange = function () {
+            var q = this.value;
+            var that = this;
+            var pid = this.parentNode.getAttribute('data-val');
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/cart/edit');
+            var data = 'quantity=' + q + '&productid=' + pid;
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send(data);
+            xhr.onload = function () {
+                refresh(that);
+            }
+        }
+    }
+</script>
+@*delete?*@
+<script type="text/javascript">
+    var b = document.getElementsByClassName("del");
+    b.click(confirmDelete);
+</script>
+
+
+
+
+

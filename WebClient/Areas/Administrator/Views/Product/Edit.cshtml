@@ -1,0 +1,55 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "Edit";
+}
+<div class="table-area">
+    <h1>Chỉnh sửa sản phẩm</h1>
+    <form class="form-custom2" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <div>
+            <label>Danh mục</label>
+            <select style="border:1px solid #1A73E8;outline-color:1A73E8;" name="CategoryId">
+                @foreach (Category item in ViewBag.categories)
+                {
+                    @if (item.Id == Model.CategoryId)
+                    {
+                        <option value="@item.Id" selected="selected">@item.Name</option>
+
+                    }
+                    else
+                    {
+                        <option value="@item.Id">@item.Name</option>
+
+                    }
+                }
+            </select>
+        </div>
+        <div>
+            <label>Tên</label>
+            <input type="text" name="name" value="@Model.Name" />
+        </div>
+        <div>
+            <label>Giá</label>
+            <input type="number" name="price" value="@Model.Price" />
+        </div>
+        <div>
+            <label>Số lượng</label>
+            <input type="number" name="quantity" value="@Model.Quantity" />
+        </div>
+        <div>
+            <label>Giảm giá</label>
+            <input type="text" name="Temp_Discount" value="@Model.Discount" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
+        </div>
+        <div>
+            <label>Mô tả</label>
+            <textarea style="outline-color: #1A73E8; border-color: #1A73E8;" name="Description">@Model.Description</textarea>
+        </div>
+        <div>
+            <label>Hình ảnh</label>
+            <input style="outline-color: #1A73E8; border-color: #1A73E8;" type="hidden" name="ImageUrl" value="@Model.ImageUrl" />
+            <input style="border:none;outline-color:#1A73E8;border-color:#1A73E8;" type="file" name="f" />
+        </div>
+        <button class="create-btn"><a href="#">Lưu</a></button>
+    </form>
+
+</div>

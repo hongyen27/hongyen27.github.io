@@ -1,0 +1,70 @@
+﻿@model Account
+@{
+    ViewData["Title"] = "SignUp";
+}
+<link href="~/css/log.css" rel="stylesheet" />
+<div asp-validation-summary="All"></div>
+<form method="post">
+    <h1>Đăng ký</h1>
+    <div class="input">
+        <input placeholder="Username" type="text" asp-for="Username" required="">
+        <input placeholder="Password" type="password" asp-for="Password" required="">
+        <input placeholder="Email" type="text" asp-for="Email" required="">
+        <input placeholder="Họ" type="text" asp-for="Ho" required="">
+        <input placeholder="Tên" type="text" asp-for="Ten" required="">
+        <input placeholder="Địa chỉ" type="text" asp-for="Address" required="">
+        <input placeholder="Số điện thoại" type="text" asp-for="SDT" required="">
+
+    </div>
+    <button>Đăng ký</button>
+    @*<p>
+            <label asp-for="Username"></label>
+            <input type="text" name="Username" />
+            <span asp-validation-for="Username"></span>
+        </p>
+        <p>
+            <label asp-for="Password"></label>
+            <input type="text" name="Password" />
+            <span asp-validation-for="Password"></span>
+        </p>
+        <p>
+            <label asp-for="Email"></label>
+            <input type="text" name="Email" />
+            <span asp-validation-for="Email"></span>
+        </p>
+        <p>
+            <label asp-for="Ho"></label>
+            <input type="text" name="Ho" />
+            <span asp-validation-for="Ho"></span>
+        </p>
+
+        <p>
+            <label asp-for="Ten">Tên</label>
+            <input type="text" name="Ten" />
+            <span asp-validation-for="Ten"></span>
+        </p>
+        <p>
+            <label asp-for="Address">Địa chỉ</label>
+            <input type="text" name="Address" />
+            <span asp-validation-for="Address"></span>
+        </p>
+        <p>
+            <label asp-for="SDT">Số điện thoại</label>
+            <input type="text" name="SDT" />
+            <span asp-validation-for="SDT"></span>
+        </p>*@
+    @*<p>
+            <button>Đăng ký</button>
+        </p>*@
+</form>
+@*<div asp-validation-summary="All"></div>
+    <form method="post">
+        <h1>Sign Up</h1>
+        <div class="input">
+            <input placeholder="Username" type="text" asp-for="Username">
+            <input placeholder="Password" type="password" asp-for="Password">
+            <input placeholder="Email" type="email" asp-for="Email">
+        </div>
+        <button>Sign Up</button>
+    </form>*@
+

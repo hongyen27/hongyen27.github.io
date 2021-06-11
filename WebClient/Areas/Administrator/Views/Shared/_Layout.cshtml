@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/css/log.css" rel="stylesheet" />
+    <link href="~/css/customstyle.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body style="margin:0!important">
+    <nav class="navbar navbar-expand-lg  primary-color" style="background-color:#37474F;position:fixed;">
+
+        <!-- Navbar brand -->
+        <h1><a href="/" style="text-decoration: none;color: #dfdbdb;font-weight:bold;padding-left: 0;">MINISHOP</a></h1>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Collapsible content -->
+        <div class="md-form my-0" style="margin-left: auto;">
+            <ul class="d-flex" style=" margin-bottom: 0rem;">
+                <li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" style="width:auto;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <label><span style="margin:0;">Xin chào: </span> @User.Identity.Name</label>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                @*<a class="dropdown-item" href="/cart" style="text-decoration:none"> <i class="fas fa-shopping-cart"></i>Giỏ Hàng</a>*@
+                                <a class="dropdown-item" href="/auth" style="text-decoration:none"> <i class="fas fa-users"></i>Hồ Sơ</a>
+                                <a class="dropdown-item" href="/auth/signout" style="text-decoration:none"><i class="fas fa-sign-out-alt"></i>Đăng Xuất</a>
+
+                            </div>
+                        </div>
+                        @*<ul>
+                        <li>
+                            <a class="colorGrey" href="/auth" style="text-decoration:none"><i class="fas fa-users"></i>Profile</a>
+                        </li>
+                        <li><a href="/order" style="text-decoration:none"><i class="fas fa-gift"></i>Đơn hàng</a></li>
+                        <li>
+                            <a class="colorGrey" href="/auth/signout" style="text-decoration:none"><i class="fas fa-sign-out-alt"></i>LogOut</a>
+                        </li>
+                    </ul>*@
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-dark">
+                            <a class="colorGrey ml-2" href="/auth/signup" style="text-decoration:none;color:#dfdbdb"><i class="fas fa-sign-in-alt"></i>SignUp</a>
+                        </button>
+                        <button type="button" class="btn btn-success">
+                            <a class="colorGrey ml-2" href="/auth/signin" style="text-decoration:none;color:#dfdbdb"><i class="fas fa-user-plus"></i>Login</a>
+                        </button>
+                    }
+                </li>
+                @*<li>
+                <a class="colorGrey" href="/cart" style="text-decoration:none"><i class="fas fa-shopping-cart"></i>Cart</a>
+            </li>*@
+            </ul>
+        </div>
+
+    </nav>
+    <div id="viewport">
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <ul class="nav">
+                <li>
+                    <a href="/administrator/category">Danh mục</a>
+                </li>
+                <li>
+                    <a href="/administrator/product">Sản phẩm</a>
+                </li>
+                <li>
+                    <a href="/administrator/role">Vai trò</a>
+                </li>
+                <li>
+                    <a href="/administrator/member">Tài khoản</a>
+                </li>
+                <li>
+                    <a href="/administrator/order">Đơn hàng</a>
+                </li>
+                <li>
+                    <a href="/administrator/summary">Thống kê</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

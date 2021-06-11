@@ -1,0 +1,51 @@
+﻿@model List<Category>
+@{
+    Layout = "_LayoutHome";
+    ViewData["Title"] = "Index";
+}
+<link href="/css/style.css" rel="stylesheet" />
+<div class="table-area">
+    <h1>Quản Lý Danh Mục</h1>
+    <button class="create-btn">
+        <a href="/administrator/category/create">Tạo mới</a>
+    </button>
+    <table>
+        <thead>
+            <tr>
+                <th>Tên</th>
+                <th>Mô tả</th>
+                <th>Sửa</th>
+                <th>Xoá</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="font-weight:bold;">@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>
+                        <a href="/administrator/category/edit/@item.Id">
+                            <img src="~/images/edit.png" />
+                        </a>
+                    </td>
+                    <td>
+                        <a class="del" href="/administrator/category/delete/@item.Id">
+                            <img src="~/images/trash.png" />
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    var b = document.getElementsByClassName('del');
+    for (var i = 0; i < b.length; i++) {
+        b[i].onclick = function () {
+            return confirm('Are you sure delete?');
+        }
+    }
+</script>
+

@@ -1,0 +1,55 @@
+﻿@model List<Product>
+@{
+    Layout = "_LayoutHome";
+    ViewData["Title"] = "ManagerProduct";
+}
+<link href="/css/style.css" rel="stylesheet" />
+<div class="table-area">
+    <h1>Quản Lý Sản Phẩm</h1>
+    <button class="create-btn"><a href="/administrator/product/create">Tạo mới</a></button>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th style="width:65px;">Danh mục Id</th>
+                <th>Tên</th>
+                <th>Miêu tả</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Hình ảnh</th>
+                <th>Sửa</th>
+                <th>Xoá</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.CategoryId</td>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>@item.Price</td>
+                    <td>@item.Quantity</td>
+                    <td>
+                        @if (item.ImageUrl != null)
+                        {
+                            <img src="/upload/@item.ImageUrl" width="200" />
+                        }
+                    </td>
+                    <td>
+                        <a href="/administrator/product/edit/@item.Id">
+                            <img src="/images/edit.png" />
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/administrator/product/delete/@item.Id">
+                            <img src="/images/trash.png" />
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

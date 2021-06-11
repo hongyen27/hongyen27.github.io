@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="/css/home.css" rel="stylesheet" />
+    <link href="/css/all.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <script src="/js/js.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.green.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="container" style="background-color: #55585d; width: 100%; max-width: 100%; height:80px">
+        <div class="header" >
+
+            <div class="logo">
+                <h1><a href="/" style="color:#dfdbdb;text-decoration:none">MINISHOP</a></h1>
+            </div>
+            @*<div class="signInUp">
+                <ul class="menu" style=" margin-bottom: 0rem; padding-top: 15px;">*@
+            @*<li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+                        <label>Welcome: @User.Identity.Name</label>
+                        <ul>
+                            <li>
+                                <a class="colorGrey" href="/auth"><i class="fas fa-users"></i>Profile</a>
+                            </li>
+                            <li><a href="/order"><i class="fas fa-gift"></i>Đơn hàng</a></li>
+                            <li>
+                                <a class="colorGrey" href="/auth/signout"><i class="fas fa-sign-out-alt"></i>LogOut</a>
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <button type="button" style="width: 100px;" class="btn btn-primary"><a href="/auth/signup" style="color: #fff"><i class="fas fa-sign-in-alt"></i>SignUp</a></button>
+                        <button type="button" style="width: 100px;" class="btn btn-primary"><a class="colorGrey" style="color: #fff" href="/auth/signin"><i class="fas fa-user-plus"></i>Login</a></button>
+
+                    }
+                </li>*@
+            @*<li>
+                    <button type="button" style="width: 100px;" class="btn btn-primary"><a class="colorGrey" style="color:#fff;" href="/cart"><i class="fas fa-shopping-cart"></i>Cart</a></button>
+
+                </li>*@
+            @*</ul>
+                </div>*@
+        </div>
+    </div>
+    @*<div class="hd-search">
+            <form action="/home/search">
+                <input type="search" name="q" value="@Context.Request.Query["q"]" />
+                <button>Search</button>
+            </form>
+        </div>*@
+
+    <div style=" margin: 36px;">
+        @RenderBody()
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

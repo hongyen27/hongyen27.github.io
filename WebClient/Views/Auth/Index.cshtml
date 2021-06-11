@@ -1,0 +1,15 @@
+﻿@model Account
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div style="text-align:center">
+    <h1>Thông tin người dùng</h1>
+    <p style="font-size: 26px;">Username: <b>@Model.Username</b></p>
+    <p style="font-size: 26px;">Địa chỉ: <b>@Model.Address</b></p>
+    <p style="font-size: 26px;">Số điện thoại: <b>@Model.SDT</b></p>
+    <p style="font-size: 26px;">Email: <b>@Model.Email</b></p>
+    <a style="text-decoration:none" href="/auth/change">Change Password</a>
+</div>
+
+

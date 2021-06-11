@@ -1,0 +1,102 @@
+﻿@model List<Role>
+@{
+    Layout = "_LayoutHome";
+    ViewData["Title"] = "ManagerRole";
+}
+<link href="/css/style.css" rel="stylesheet" />
+<div class="table-area">
+    <h1>Vai Trò</h1>
+    <a href="#Create" class="create-btn text-white" style="text-decoration:none;margin:20px 0;display: block;width: 110px;">Tạo mới</a>
+    <div class="modal" id="Create">
+        <div class="modal-dialog" style="pointer-events:auto !important">
+            <div class="modal-headding">
+                Tạo mới vai trò
+            </div>
+            <div class="modal-body">
+                <form action="/administrator/role/create" method="post">
+                    <p>
+                        <label>Tên</label>
+                        <input type="text" name="name" />
+                    </p>
+                    <div>
+                        <button class="create-btn" style="color:white;margin-right:20px">Lưu</button>
+                        @*<button class="create-btn"><a href="/administrator/Role">Đóng</a></button>*@
+                        <a href="/administrator/Role" class="create-btn text-white" style="text-decoration:none;">Đóng</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tên</th>
+                <th>Sửa</th>
+                <th>Xoá</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr data-id="@item.Id">
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td class="del">
+                    <a style="cursor:pointer;">
+                        <img height="34" width="30" src="/Images/edit.png" />
+                    </a>
+                </td>
+                <td>
+                    <a class="delete" href="/administrator/role/delete/@item.Id">
+                        <img height="34" width="30" src="~/images/trash.png" />
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="modal" id="edit">
+        <div class="modal-dialog" style="pointer-events:auto !important">
+            <div class="modal-headding">
+                Chỉnh sửa
+            </div>
+            <div class="modal-body">
+                <form name="frm" method="post" action="/administrator/role/edit">
+                    <input type="hidden" name="id" />
+                    <p>
+                        <label>Tên</label>
+                        <input type="text" name="name" />
+                    </p>
+                    <p>
+                        <button class="create-btn"><a>Lưu</a></button>
+                        <a href="/administrator/Role" class="create-btn text-white" style="text-decoration:none;">Đóng</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*delete*@
+<script type="text/javascript">
+    var a = document.getElementsByClassName('del');
+    for (var i = a.length - 1; i >= 0; i--) {
+        a[i].onclick = function () {
+            var id = this.parentNode.getAttribute('data-id');
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/administrator/role/edit/' + id);
+            xhr.send();
+            xhr.onload = function () {
+                var o = JSON.parse(xhr.response);
+                frm['id'].value = o['id'];
+                frm['name'].value = o['name'];
+                window.location = window.location + '#edit';
+            }
+        }
+    }
+    var b = document.getElementsByClassName('delete');
+    for (var i = 0; i < b.length; i++) {
+        b[i].onclick = function () {
+            return confirm('Bạn chắc là muốn xoá chứ?');
+        }
+    }
+</script>

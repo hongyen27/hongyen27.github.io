@@ -1,0 +1,96 @@
+﻿@model List<Orders>
+@{
+    Layout = "LayoutPage";
+    ViewData["Title"] = "Index";
+}
+<br />
+<br />
+<br />
+    <h2 class="text-center" style="text-transform: uppercase;font-size: 38px;color: #485650;font-weight: bold;
+">
+        Đơn hàng
+    </h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Mã đơn hàng</th>
+            <th>Ngày đặt</th>
+            <th>Người giao hàng</th>
+            <th>Số điện thoại người giao</th>
+            <th>Trạng thái đơn hàng</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.CreateTime</td>
+            <td>@item.HOTEN_DL</td>
+            <td>@item.SDT_DL</td>
+            <td>@item.Status</td>
+            @if (User.IsInRole("DELIVER"))
+            {
+                <td hidden><a style="text-decoration:none" href="order/items/@item.Id">Chi tiết đơn hàng</a></td>
+            }
+            else
+            {
+                <td><a style="text-decoration:none" href="order/items/@item.Id">Chi tiết đơn hàng</a></td>
+            }
+            @if (User.IsInRole("DELIVER"))
+            {
+                @if (item.Status_code == "S")
+                {
+                    <td>Hoàn tất</td>
+                }
+                else
+                {
+                    <td>
+                        <form action="/order/process" method="post">
+                            <input hidden placeholder="" value="S" type="text" name="Status" required="" />
+                            <input hidden placeholder="" value="@item.Id" type="text" name="Id" required="" />
+                            <button>Xác nhận giao hàng</button>
+                        </form>
+                    </td>
+                }
+            }
+            else
+            {
+                @if (item.Status_code == "P" || item.Status_code == "C")
+                {
+                    @*<td><a style="text-decoration:none" href="#">Hủy đơn hàng</a></td>*@
+                    <td>
+                        <form action="/order/process" method="post">
+                            <input hidden placeholder="" value="X" type="text" name="Status" required="" />
+                            <input hidden placeholder="" value="@item.Id" type="text" name="Id" required="" />
+                            <button>Hủy đơn hàng</button>
+                        </form>
+                    </td>
+
+                }
+                else if (item.Status_code == "X")
+                {
+                    @*<td><a href="#">Đặt hàng lại</a></td>*@
+                    <td>
+                        <form action="/order/process" method="post">
+                            <input hidden placeholder="" value="P" type="text" name="Status" required="" />
+                            <input hidden placeholder="" value="@item.Id" type="text" name="Id" required="" />
+                            <button>Đặt lại hàng</button>
+                        </form>
+                    </td>
+                }
+                else
+                {
+                    <td>Hoàn tất</td>
+                }
+            }
+
+
+        </tr>
+        }
+    </tbody>
+    
+</table>

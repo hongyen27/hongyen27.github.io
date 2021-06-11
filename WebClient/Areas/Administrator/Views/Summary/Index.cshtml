@@ -1,0 +1,39 @@
+﻿
+@{
+    Layout = "_LayoutHome";
+    ViewData["Title"] = "SummaryCategoreis";
+}
+
+<div class="table-area">
+    <h1>Thống kê % sản phẩm thuộc danh mục được mua!</h1>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+</div>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+          var a = [['Task', 'Hours per Day']];
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', '/administrator/summary/summaryc');
+          xhr.send();
+          xhr.onload = function () {
+              var o = JSON.parse(this.response);
+              for (var i = o.length - 1; i >= 0; i--) {
+                  a.push([o[i]['name'], o[i]['total']]);
+              }
+              var data = google.visualization.arrayToDataTable(a);
+              var options = {
+                  title: 'Category Summary',
+                  is3D: true,
+              };
+              var chart = new google.visualization.PieChart(piechart);
+
+              chart.draw(data, options);
+          }
+      }
+</script>
+
+

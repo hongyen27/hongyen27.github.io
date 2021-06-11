@@ -1,0 +1,66 @@
+﻿@model Account
+@{
+    ViewData["Title"] = "Account";
+}
+<script src="~/js/js.js"></script>
+<link href="~/css/Style.css" rel="stylesheet" />
+<div class="table-area">
+    <p>Tên người dùng: <b>@Model.Username</b></p>
+    <p>Email: <b>@Model.Email</b></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Tên vai trò</th>
+                <th>Đã chọn</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Roles)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>
+                        @if (item.Checked)
+                        {
+                            <input type="checkbox" value="@item.Id" name="chk" checked="checked" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" value="@item.Id" name="chk" />
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<script type="text/javascript">
+    var a = document.getElementsByName('chk');
+    a.change(function () {
+        var o = { 'roleid': this.value, 'accountid': '@Model.Id' };
+        ajax.post(o, '/administrator/member/edit', function (data) {
+            alert(data);
+        });
+    });
+</script>
+@*<script type="text/javascript">
+        var a = document.getElementsByName('chk');
+        for (var i = a.length - 1; i >= 0; i--) {
+            a[i].onchange = function () {
+                //alert(this.value);
+                //alert(@Model.Id);
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/administrator/member/edit');
+                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                var data = 'RoleId=' + this.value + '&MemberId=@Model.Id';
+                xhr.send(data);
+                xhr.onload = function () {
+                    alert(this.response);
+                }
+            }
+        }
+    </script>*@
+

@@ -1,0 +1,119 @@
+﻿.menu::after{
+    display:table;
+    content: '';
+    clear : left;
+}
+.menu li{
+    list-style-type: none; /*bo dau chamm*/
+}
+.menu > li{
+    float: left;
+    position: relative;
+    padding: 0 5px;/*top= bottom = 0, left = right = 5px*/
+}
+.menu > li:hover ul{
+    display:block;
+}
+.menu ul{
+    display: none;/*an ul ben trong*/
+    position: absolute;
+    left:0;
+    width: 200px;
+    padding: 0;
+    background-color:white;
+}
+.row{
+    display: flex;
+    flex-wrap : wrap;
+}
+.col-3{
+    flex : 25%;
+    max-width : 25%;
+}
+.col-4 {
+    flex: 33.333333333333%;
+    max-width: 33.333333333333%;
+}
+.col-9{
+    flex : 75%;
+    max-width : 75%;
+}
+.copyright{
+    background-color: pink;
+}
+table {
+    border: 1px solid #000000;
+	border-collapse: collapse;
+	width: 100%;
+}
+th, .fa-sort{
+	background: #222D32;
+    color: white;
+}
+.fa-sort:hover{
+	color:white;
+}
+th, td {
+    border: 1px solid #000000;
+    line-height: 25px;
+    text-align: left;
+    padding: 5px;
+}
+/*Edit and create*/
+.modal{
+    position: fixed;
+    background-color: rgba(0,0,0,0.5);
+    left:0;
+    right:0;
+    bottom:0;
+    top:0;
+    display:none;
+}
+.modal:target{
+    display:block;
+}
+.modal-dialog{
+    background-color : #fff;
+    border: 1px solid #ddd;
+    width: 70%;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 6px;
+    z-index: 99999;
+}
+.modal-headding{
+    border-bottom: 1px solid #ddd;
+    padding: 20px;
+}
+.modal-body{
+    padding:20px;
+}
+body main .container .category-content {
+    position: relative;
+    padding : 50px 0;
+}
+    body main .container .category-content ul{
+        position: absolute;
+        bottom:0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+.pagination li {
+    display: inline-block;
+    border: 1px solid pink;
+    padding: 5px 10px;
+    border-radius: 3px;
+    margin: 0 5px;
+    
+}
+
+    .pagination li.active {
+        background-color: pink;
+        margin: 0 5px;
+    }
+.pagination {
+    justify-content: center;
+    padding-top:35px
+}

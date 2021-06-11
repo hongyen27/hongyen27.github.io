@@ -1,0 +1,416 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="/css/home.css" rel="stylesheet" />
+    <link href="/css/all.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <script src="/js/js.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.green.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+    
+</head>
+<body>
+    <div class="container-fluid" style="padding: 0; margin: 0;">
+
+
+
+
+        <!--Navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark primary-color" style="background-color: #55585d">
+
+            <!-- Navbar brand -->
+            <h1><a href="/" style="text-decoration: none;color: #dfdbdb;font-weight:bold;padding-left: 30px;">MINISHOP</a></h1>
+
+            <!-- Collapse button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Collapsible content -->
+            <div class="collapse navbar-collapse" id="basicExampleNav">
+
+                <!-- Links -->
+                <ul class="navbar-nav m-auto align-items-md-center">
+                    <li class="nav-item active">
+
+                        @*<a class="nav-link" href="#" style="color: #dfdbdb;font-weight:bold">
+                            TRANG CHỦ
+                            <span class="sr-only">(current)</span>
+                        </a>*@
+                    </li>
+                    @*<li class="nav-item">
+                        <a class="nav-link" href="#" style="color: #dfdbdb; font-weight: bold">THÔNG TIN</a>
+                    </li>*@
+
+                    <!-- Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false" style="color: #dfdbdb; font-weight: bold; cursor: pointer">DANH MỤC</a>
+                        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink" style="background: #eee4f7;">
+
+
+                            @foreach (var item in ViewBag.categories)
+                            {
+                                <div class="box">
+                                    <ul class="list">
+                                        <li class="item">
+
+                                            <div>
+                                                <a class="dropdown-item" style="text-transform: uppercase;font-weight: bold;" href="/home/browser/@item.Id">@item.Name</a>
+                                            </div>
+
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+
+
+                            }
+
+                        </div>
+                    </li>
+                    <form action="/home/search" style=" padding-left: 50px;" class="d-flex">
+                        <input class="form-control" type="search" name="q" value="@Context.Request.Query["q"]" placeholder="Tìm kiếm" />
+                        <button class="btn btn-secondary" style="margin-left:5px">Tìm</button>
+                    </form>
+                </ul>
+                <!-- Links -->
+
+            </div>
+            <!-- Collapsible content -->
+            <div class="md-form my-0" style=" width: 400px;">
+                <ul class="d-flex" style=" margin-bottom: 0rem;">
+                    <li class="d-flex">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (User.IsInRole("Administrator") || User.IsInRole("Staff"))
+                            {
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-right: 13px;background: #b6a3ff;">
+                                        <label style="cursor:pointer"><span>Xin chào : </span> @User.Identity.Name</label>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color:#eee4f7">
+                                        <a class="dropdown-item" href="/administrator" style="text-decoration:none"><i class="fas fa-gift"></i>Quản lý</a>
+                                        <a class="dropdown-item" href="/auth" style="text-decoration:none"> <i class="fas fa-users"></i>Hồ sơ</a>
+                                        <a class="dropdown-item" href="/auth/signout" style="text-decoration:none"><i class="fas fa-sign-out-alt"></i>Thoát</a>
+                                    </div>
+
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-right: 13px;background: #b6a3ff;">
+                                        <label style="cursor:pointer"><span>Xin chào : </span> @User.Identity.Name</label>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color:#eee4f7">
+
+                                        <a class="dropdown-item" href="/auth" style="text-decoration:none"> <i class="fas fa-users"></i>Hồ sơ</a>
+                                        <a class="dropdown-item" href="/order" style="text-decoration:none"><i class="fas fa-gift"></i>Đơn hàng</a>
+                                        <a class="dropdown-item" href="/auth/signout" style="text-decoration:none"><i class="fas fa-sign-out-alt"></i>Thoát</a>
+                                    </div>
+
+                                </div>
+                            }
+
+
+
+
+
+                            @*<ul>
+                <li>
+                    <a class="colorGrey" href="/auth" style="text-decoration:none"><i class="fas fa-users"></i>Profile</a>
+                </li>
+                <li><a href="/order" style="text-decoration:none"><i class="fas fa-gift"></i>Đơn hàng</a></li>
+                <li>
+                    <a class="colorGrey" href="/auth/signout" style="text-decoration:none"><i class="fas fa-sign-out-alt"></i>LogOut</a>
+                </li>
+            </ul>*@
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-dark ml-3">
+                                <a class="colorGrey ml-2" href="/auth/signup" style="text-decoration:none;color:#dfdbdb;margin-left: 7px;
+"><i class="fas fa-sign-in-alt"></i>SignUp</a>
+                            </button>
+                            <button type="button" class="btn btn-success ml-3">
+                                <a class="colorGrey ml-2" href="/auth/signin" style="text-decoration:none;color:#dfdbdb" ;margin-left:7px><i class="fas fa-user-plus"></i>Login</a>
+                            </button>
+                        }
+                    </li>
+                    <div>
+                        <button class="ml-3" style="background: #b6a3ff; text-align: center; border-radius: 2px; color: #fff;height:46px">
+                            <a class="dropdown-item" href="/cart" style="text-decoration:none;height: 46px;padding-top: 9px;"> <i class="fas fa-shopping-cart"></i>Giỏ hàng</a>
+
+                        </button>
+                    </div>
+                    @*<li>
+            <a class="colorGrey" href="/cart" style="text-decoration:none"><i class="fas fa-shopping-cart"></i>Cart</a>
+        </li>*@
+                </ul>
+            </div>
+
+        </nav>
+
+        @*<div class="hd-search">
+                <form action="/home/search">
+                    <input type="search" name="q" value="@Context.Request.Query["q"]" />
+                    <button>Search</button>
+                </form>
+            </div>*@
+        <!--/.Navbar-->
+        @*<div class="header">
+                    <div class="contact">
+                        <h3 class="abc">Hỗ trợ</h3>
+                        <h3><i class="fas fa-phone-volume"></i>(+84)372704074</h3>
+                        <h3><i class="fas fa-envelope"></i>Admin@gmail.com</h3>
+                    </div>
+                    <div class="logo">
+                        <h1><a href="/" style="text-decoration:none">MINISHOP</a></h1>
+                    </div>
+                    <div class="signInUp">
+                        <ul class="menu">
+                            <li>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+
+                                    <label>Welcome: @User.Identity.Name</label>
+                                    <ul>
+                                        <li>
+                                            <a class="colorGrey" href="/auth"><i class="fas fa-users"></i>Profile</a>
+                                        </li>
+                                        <li><a href="/order"><i class="fas fa-gift"></i>Đơn hàng</a></li>
+                                        <li>
+                                            <a class="colorGrey" href="/auth/signout"><i class="fas fa-sign-out-alt"></i>LogOut</a>
+                                        </li>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <a class="colorGrey" href="/auth/signup"><i class="fas fa-sign-in-alt"></i>SignUp</a>
+                                    <a class="colorGrey" href="/auth/signin"><i class="fas fa-user-plus"></i>Login</a>
+                                }
+                            </li>
+                            <li>
+                                <a class="colorGrey" href="/cart"><i class="fas fa-shopping-cart"></i>Cart</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hd-search">
+                <form action="/home/search">
+                    <input type="search" name="q" value="@Context.Request.Query["q"]" />
+                    <button>Search</button>
+                </form>
+            </div>
+
+            <main>
+                <header>
+                    <h1><a href="">TRANG CHỦ</a></h1>
+                    <div class="dropdown">
+                        <h1><a href="">SẢN PHẨM</a></h1>
+                        <ul>
+                            @foreach (var item in ViewBag.categories)
+                            {
+                                <li>
+                                    <a href="/home/browser/@item.Id">@item.Name</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <h1><a href="">ABOUT</a></h1>
+                </header>*@
+
+
+
+
+        <div id="demo" class="carousel slide" data-ride="carousel">
+            <ul class="carousel-indicators">
+                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                <li data-target="#demo" data-slide-to="1"></li>
+                <li data-target="#demo" data-slide-to="2"></li>
+                <li data-target="#demo" data-slide-to="3"></li>
+            </ul>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="~/upload/dambodylechvai.jpg" alt="Los Angeles" width="100%" height="500" style="filter:brightness(60%);"/>
+                    <div class="carousel-caption" style="color:#fff">
+                        <h3>Giảm giá đến 20%</h3>
+                        <p>Thank you!</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="~/upload/damdangxoe.jpg" alt="Chicago" width="100%" height="500" style="filter:brightness(60%);"/>
+                    <div class="carousel-caption" style="color:#fff">
+                        <h3>Tiết kiệm thời gian đến của hàng</h3>
+                        <p>Thank you!</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="~/upload/aothun2.jpg" alt="New York" width="100%" height="500" style="filter:brightness(60%);"/>
+                    <div class="carousel-caption" style="color:#fff">
+                        <h3>Đem lại cho bạn những gì tuyệt vời nhất</h3>
+                        <p>Thank you!</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="~/upload/aokhoac.jpg" alt="New York" width="100%" height="500" style="filter:brightness(60%);"/>
+                    <div class="carousel-caption" style="color:#fff">
+                        <h3>Giao hàng đến tận nơi</h3>
+                        <p>Thank you!</p>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#demo" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+        </div>
+
+
+
+
+
+        @*<div class="banner">
+                <div class="container-fluid">
+                    <div class="owl-carousel owl-theme sliderBanner">
+                        <div class="slider">
+                            <img src="~/upload/banner2.jpg" alt="" />
+                        </div>
+                        <div class="slider">
+                            <img src="~/upload/banner-mid.jpg" alt="" />
+                        </div>
+                        <div class="slider">
+                            <img src="~/upload/banner1.jpg" alt="" />
+                        </div>
+                        <div class="slider">
+                            <img src="~/upload/banner3.jpg" alt="" />
+                        </div>
+                        <div class="slider">
+                            <img src="~/upload/banner4.jpg" alt="" />
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+
+        <div class="container">
+            <div class="category-content">
+                @RenderBody()
+            </div>
+        </div>
+        </main>
+        <footer>
+            <div class="container">
+                <div class="footer-item1 row">
+                    <div class="contact col-xs-12 col-md-6">
+                        <div class="content col-xs-6">
+                            <h2>Producer</h2>
+                            <p>Hồng Yến</p>
+                        </div>
+                        <div class="content col-xs-6">
+                            <h2>Email</h2>
+                            <a style="text-decoration:none" href="#">lehongyen98@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact col-xs-12 col-md-6">
+                        <div class="content col-xs-6">
+                            <h2>Phone</h2>
+                            <a style="text-decoration:none" href="">0344964466</a>
+                            <div class="contact">
+
+                            </div>
+                        </div>
+                        <div class="content col-xs-6">
+                            <h2>Fax</h2>
+                            <a style="text-decoration:none" href="">+ 000 1111 0000</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-item2 row">
+                    <div class="item-child col-xs-12 col-md-4">
+                        <a href="">
+                            <i class="fab fa-facebook-square"
+                               style="color: #3b5998; padding-right: 10px;"></i>
+                        </a>
+                        <a href="">
+                            <i class="fab fa-instagram"
+                               style="color: #e1306c; padding-right: 10px;"></i>
+                        </a>
+                        <a href="">
+                            <i class="fab fa-twitter-square" style="color: #1da1f2;"></i>
+                        </a>
+                    </div>
+                    <div class="item-child col-xs-12 col-md-4">
+                        <a href=""
+                           style="
+                color: rgb(160, 160, 160);
+                font-size: 15px;
+                padding-right: 10px;
+              ">Privacy policy</a>
+                        <a href="" style="color: rgb(160, 160, 160); font-size: 15px;">Term of service</a>
+                    </div>
+                    <div class="item-child col-xs-12 col-md-4">
+                        <p>
+                            © 2021 Shot pic. All rights reserved | Designed by Hồng Yến
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="~/js/sliderManin.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script type="text/javascript">
+</script>
+
+<script type="text/javascript">
+    $().ready(function () {
+        $('[rel="tooltip"]').tooltip();
+
+        $('a.scroll-down').click(function (e) {
+            e.preventDefault();
+            scroll_target = $(this).data('href');
+            $('html, body').animate({
+                scrollTop: $(scroll_target).offset().top - 60
+            }, 1000);
+        });
+
+    });
+
+    function rotateCard(btn) {
+        var $card = $(btn).closest('.card-container');
+        console.log($card);
+        if ($card.hasClass('hover')) {
+            $card.removeClass('hover');
+        } else {
+            $card.addClass('hover');
+        }
+    }
+
+
+</script>
+
+</html>

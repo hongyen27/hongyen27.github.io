@@ -1,0 +1,21 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<div class="table-area">
+    <div asp-validation-summary="All"></div>
+    <h1>Tạo mới danh mục</h1>
+    <form class="form-custom" method="post">
+        <div class="input">
+            <input placeholder="Tên" type="text" asp-for="Name" required="">
+
+        </div>
+        <textarea placeholder="Mô tả" type="text" asp-for="Description" required="" style="padding-left: 25px;width: 243px;"></textarea>
+        <button class="create-btn">Save</button>
+    </form>
+</div>
+
+
+

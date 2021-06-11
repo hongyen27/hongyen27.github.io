@@ -1,0 +1,13 @@
+﻿@model List<Product>
+@using WebClient
+@addTagHelper *, WebClient
+@{
+    Layout = "_LayoutHome";
+    ViewData["Title"] = "Minishop";
+}
+
+
+<partial name="ViewCategory" model="Model"/>
+<pagination url="/home/index/{0}" total="@ViewBag.total" size="8" page="@ViewContext.GetId("id")"></pagination>
+
+

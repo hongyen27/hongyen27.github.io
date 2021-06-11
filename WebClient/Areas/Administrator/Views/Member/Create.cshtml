@@ -1,0 +1,22 @@
+﻿@model Account
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="table-area">
+    <h1>Tạo mới tài khoản</h1>
+    <div asp-validation-summary="All"></div>
+    <form class="form-custom" method="post">
+        <div class="input">
+            <input placeholder="Username" type="text" asp-for="Username" required="">
+            <input placeholder="Password" type="password" asp-for="Password" required="">
+            <input placeholder="Email" type="text" asp-for="Email" required="">
+            <input placeholder="Họ" type="text" asp-for="Ho" required="">
+            <input placeholder="Tên" type="text" asp-for="Ten" required="">
+            <input placeholder="Địa chỉ" type="text" asp-for="Address" required="">
+            <input placeholder="Số điện thoại" type="text" asp-for="SDT" required="">
+        </div>
+        <button class="create-btn">Lưu</button>
+    </form>
+</div>
+

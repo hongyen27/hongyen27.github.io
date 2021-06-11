@@ -1,0 +1,104 @@
+﻿@model Product
+@{
+    Layout = "_LayoutHome";
+    ViewData["Title"] = "Detail";
+}
+
+    <div>
+
+
+        <div class="container">
+            <div class="card" style="padding:0px">
+                <div class="container-fliud">
+                    <div class="wrapper row">
+                        <div class="preview col-md-6">
+
+                            <div class="preview-pic tab-content">
+                                
+                                <div class="tab-pane active" id="pic-1"><img src="/upload/@Model.ImageUrl" /></div>
+                                
+                            </div>
+                            
+
+                        </div>
+                        <div class="details col-md-6 pt-4">
+                            <h2 class="product-title">@Model.Name</h2>                           
+                            <div class="rating">
+                                <div class="stars">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                                
+                            </div>
+                            <form action="/cart/create" method="post">
+                                <input type="hidden" name="productid" value="@Model.Id" />
+                                <input type="number" class="form-control" style="width:111px" name="quantity" value="1" min="1" max="10" />
+
+
+                                @if (@Model.Discount == null || @Model.Discount == 0)
+                                {
+                                    <h4 class="price mt-3">Giá: <span>@Html.FormatValue(Model.Price, "{0:$#,##}")</span></h4>
+                                    
+                                }
+                                else
+                                {
+                                    <p class="pt-3" style="font-weight:bold; text-decoration-line:line-through; font-size: 23px;">Giá: <b style="color: #ff9f1a;font-weight:normal">@Html.FormatValue(Model.Price, "{0:$#,##}")</b></p>
+                                    <p style="font-weight:bold; font-size: 23px;">Giảm: <span style="color:red">@(Model.Discount * 100)%</span> </p>
+                                    <p style="font-weight:bold; font-size: 23px;">Chỉ còn: <b style="font-weight:normal">@Html.FormatValue((Model.Price * (1 - Model.Discount)), "{0:$#,##}")</b></p>
+                                }
+
+
+
+                                
+                            <div class="action">
+                                <p style="font-weight:bold">Số lượng: @Model.Quantity</p>
+                                <p style="font-size:18px;font-weight:bold">Mô tả: <span style="font-weight:normal">@Model.Description</span> </p>
+                                <button class="btn btn-outline-success">Thêm vào giỏ hàng</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        @*<table>
+            <tr>
+                <td>
+                    <h2>@Model.Name</h2>
+                    <div>
+                        <img src="/upload/@Model.ImageUrl" />
+                    </div>
+                </td>
+                <td>
+                    <form action="/cart/create" method="post">
+                        <input type="hidden" name="productid" value="@Model.Id" />
+                        <input type="number" name="quantity" value="1" min="1" max="10" />
+                        <button>Add cart</button>
+                    </form>
+                    @if (@Model.Discount == null || @Model.Discount == 0)
+                    {
+                        <p>Price: <b>@Html.FormatValue(Model.Price, "{0:$#,##}")</b></p>
+                    }
+                    else
+                    {
+                        <p>Price: <b>@Html.FormatValue(Model.Price, "{0:$#,##}")</b></p>
+                        <p>Discount: @(Model.Discount * 100)%</p>
+                        <p>NewPrice: <b>@Html.FormatValue((Model.Price * (1 - Model.Discount)), "{0:$#,##}")</b></p>
+                    }
+                    <p>Quantity: @Model.Quantity</p>
+                    <p>Description: @Model.Description</p>
+                </td>
+            </tr>
+        </table>*@
+    </div>
+<div>
+    <h3 class="pt-4 text-center" style="color:#485650;font-size:40px;text-transform:uppercase">Product Relation</h3>
+    <partial name="ViewCategory" model="Model.Relation" />
+</div>

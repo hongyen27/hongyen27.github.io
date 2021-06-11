@@ -1,0 +1,19 @@
+﻿@model SignInModel
+@{
+    ViewData["Title"] = "Sign In";
+}
+<link href="~/css/log.css" rel="stylesheet" />
+<div asp-validation-summary="All"></div>
+<form method="post">
+    <h1>Đăng nhập</h1>
+    <div class="input">
+        <input placeholder="Username" type="text" asp-for="Usr" required="">
+        <input placeholder="Password" type="password" asp-for="Pwd" required="">
+    </div>
+    <label asp-for="Remember"></label>
+    <input type="checkbox" asp-for="Remember" checked="checked" />
+    <button>Đăng nhập</button>
+    <a href="/auth/signup">
+        <span>Tạo mới tài khoản?</span>
+    </a>
+</form>

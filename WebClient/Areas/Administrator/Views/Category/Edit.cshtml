@@ -1,0 +1,22 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="table-area">
+    <h1>Chỉnh sửa</h1>
+    <div asp-validation-summary="All"></div>
+    <form class="form-custom" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div class="field-area">
+            <label>Tên</label>
+            <input style="width:244px;margin-left: 22px;" type="text" asp-for="Name" />
+        </div>
+        <div class="field-area">
+            <label>Miêu tả</label>
+            <textarea style=" width: 243px;outline-color:#1A73E8;border-color:#1A73E8;" asp-for="Description"></textarea>
+        </div>
+        <button class="create-btn"><a href="#">Lưu</a></button>
+    </form>
+</div>
+

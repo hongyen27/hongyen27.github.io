@@ -1,0 +1,80 @@
+﻿@model List<OrderItems>
+@{
+    ViewData["Title"] = "Items";
+}
+
+
+<div class="container-fluid">
+
+    <h2 class="text-center" style="text-transform: uppercase;font-size: 38px;color: #485650;font-weight: bold;">
+        Đơn hàng
+    </h2>
+    @if (User.IsInRole("Administrator") || User.IsInRole("Staff"))
+    {
+        @if (ViewBag.orders.Status == "P")
+        {
+          
+                <a href="#">Hủy đơn hàng</a>
+                <a href="#">Giao hàng</a>
+           
+            
+        }
+
+    }
+    else
+    {
+        @if (ViewBag.orders.Status == "P" || ViewBag.orders.Status == "C")
+        {
+            <a href="#">Hủy đơn hàng</a>
+        }
+        @if (ViewBag.orders.Status == "X")
+        {
+            <a href="#">Đặt hàng lại</a>
+        }
+
+    }
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="text-align: center;">Tên sản phẩm</th>
+                <th style="text-align: center;">Giá</th>
+                <th style="text-align: center;">Số lượng</th>
+                <th style="text-align: center;">Tổng tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="width:15%;text-align:center"><span style="text-align:center;font-size:20px;font-weight:bold">@item.ProductName</span>  <img src="/upload/@item.ImageUrl" width="150" /></td>
+                    <td style="text-align: center;">@item.Price</td>
+                    <td style="text-align: center;">
+                        @item.Quantity
+                    </td>
+                    <th style="text-align: center;background: #fff;color: #000;">@(item.Price * item.Quantity)</th>
+
+
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="visible-xs">
+                <td class="text-center">
+                </td>
+            </tr>
+            <tr>
+
+                <td colspan="3" class="hidden-xs"> </td>
+                <td class="hidden-xs text-center">
+                    <strong>Tổng tiền :<span> @ViewBag.total đ</span> </strong>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </tfoot>
+
+
+    </table>
+</div>
+

@@ -1,0 +1,36 @@
+﻿@model List<Account>
+@{
+    Layout = "_LayoutHome";
+    ViewData["Title"] = "ManagerMember";
+}
+<link href="/css/style.css" rel="stylesheet" />
+
+<div class="table-area">
+    <h1>Danh sách tài khoản</h1>
+    <button class="create-btn">
+        <a href="/administrator/member/create">Tạo mới</a>
+    </button>
+    <table>
+        <thead>
+            <tr>
+                <th>Tên người dùng</th>
+                <th>Địa chỉ Email</th>
+                <th>Quản lý vai trò</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Username</td>
+                    <td>@item.Email</td>
+                    <td>
+                        <a href="/administrator/member/role/@item.Id">Roles</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

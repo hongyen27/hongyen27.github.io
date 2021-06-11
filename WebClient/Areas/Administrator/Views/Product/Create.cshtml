@@ -1,0 +1,64 @@
+﻿@model List<Category>
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="table-area">
+    <h1>Tạo mới sản phẩm</h1>
+    <form class="form-custom" method="post" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td>Danh mục</td>
+                <td>
+                    <select style="width:78%;outline:#1A73E8;border-color:#1A73E8" name="CategoryId">
+                        @foreach (var item in Model)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Tên</td>
+                <td>
+                    <input type="text" name="name" style="width:78%" />
+                </td>
+            </tr>
+            <tr>
+                <td>Giá</td>
+                <td>
+                    <input type="number" name="price" style="width:78%" />
+                </td>
+            </tr>
+            <tr>
+                <td>Số lượng</td>
+                <td>
+                    <input type="number" name="quantity" style="width:78%" />
+                </td>
+            </tr>
+            <tr>
+                <td>Giảm giá</td>
+                <td>
+                    <input style=" width: 187px;" type="text" name="Temp_Discount" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
+                </td>
+            </tr>
+            <tr>
+                <td>Miêu tả</td>
+                <td>
+                    <textarea type="text" name="description"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Hình ảnh</td>
+                <td>
+                    <input style="border:none;margin-left: 14px;outline-color:#1A73E8;border-color:#1A73E8;" type="file" name="f" />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button class="create-btn">Lưu</button></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+
